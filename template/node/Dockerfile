@@ -21,6 +21,9 @@ COPY package.json ./
 # This ordering means the npm installation is cached for the outer function handler.
 RUN npm i --production
 
+# Run build
+RUN npm run build
+
 # Copy outer function handler
 COPY index.js ./
 
