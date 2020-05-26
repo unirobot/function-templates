@@ -21,9 +21,6 @@ COPY package.json ./
 # This ordering means the npm installation is cached for the outer function handler.
 RUN npm i --production
 
-# Run build
-RUN npm run build
-
 # Copy outer function handler
 COPY index.js ./
 
@@ -31,10 +28,14 @@ COPY index.js ./
 # entry allows caching of npm install runtime dependencies
 WORKDIR /home/app/function
 COPY function/*.json ./
-RUN npm i --production || :
+
+RUN npm ci
 
 # Copy in additional function files and folders
 COPY --chown=app:app function/ .
+
+# npm build 
+RUN npm run build || :
 
 WORKDIR /home/app/
 
