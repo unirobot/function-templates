@@ -29,7 +29,7 @@ COPY index.js ./
 WORKDIR /home/app/function
 COPY function/*.json ./
 
-RUN npm ci
+RUN npm ci || :
 
 # Copy in additional function files and folders
 COPY --chown=app:app function/ .
